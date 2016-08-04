@@ -1,0 +1,18 @@
+/* Cascade style sheet based on neural-network-1.0.dtd DTD */
+neural-network { display: block }
+name { display: block }
+description { display: block }
+creation-date { display: block }
+modification-date { display: block }
+variables { display: block }
+variable { display: block }
+layers { display: block }
+layer { display: block }
+type { display: block }
+number-of-neurons { display: block }
+input-layer { display: block }
+output-layer { display: block }
+synapses { display: block }
+synapse { display: block }
+source-layer { display: block }
+destination-layer { display: block }

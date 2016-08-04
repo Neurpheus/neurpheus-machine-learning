@@ -1,0 +1,7 @@
+.sonar
+data
+nb-configuration.xml
+nbactions.xml
+target
+tmp
+/nbproject/
