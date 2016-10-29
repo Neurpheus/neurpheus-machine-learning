@@ -48,7 +48,7 @@ public interface TrainingExample {
     boolean isCorrect(Object result) throws TrainingSetException;
     
     /**
-     * Returns the data stored in this raining example in the form of array of bytes.
+     * Returns the data stored in this training example in the form of array of bytes.
      * 
      * @return serialized training example data.
      */

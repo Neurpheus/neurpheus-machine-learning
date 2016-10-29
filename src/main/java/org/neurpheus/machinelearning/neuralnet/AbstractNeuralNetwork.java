@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.neurpheus.machinelearning.classification.AbstractClassifier;
@@ -35,7 +36,7 @@ public abstract class AbstractNeuralNetwork extends AbstractClassifier implement
     private List layers;
     
     
-    public List getLayers() {
+    public List<NeuralNetworkLayer> getLayers() {
         return layers;
     }
     
@@ -96,10 +97,18 @@ public abstract class AbstractNeuralNetwork extends AbstractClassifier implement
     static final byte FORMAT_VERSION = 1;
 
     public void write(DataOutputStream out) throws IOException {
-        throw new UnsupportedOperationException();
+        out.writeInt(getLayers().size());
+        for (NeuralNetworkLayer layer : getLayers()) {
+            //layer.write(out);
+        }
     }
 
     public void read(DataInputStream in) throws IOException {
+        int numberOfLayers = in.readInt();
+        this.layers = new ArrayList<>(numberOfLayers);
+        for (NeuralNetworkLayer layer : getLayers()) {
+            //layer.rewrite(out);
+        }
         throw new UnsupportedOperationException();
     }
 

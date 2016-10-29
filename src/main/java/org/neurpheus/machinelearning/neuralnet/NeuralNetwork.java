@@ -29,7 +29,7 @@ import org.neurpheus.machinelearning.classification.Classifier;
  */
 public interface NeuralNetwork extends Classifier {
     
-    List getLayers();
+    List<NeuralNetworkLayer> getLayers();
     
     int getNumberOfLayers();
     

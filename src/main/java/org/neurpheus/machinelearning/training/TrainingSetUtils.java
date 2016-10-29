@@ -20,12 +20,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Jakub Strychowski
  */
 public final class TrainingSetUtils {
+    
+    private static Logger logger = Logger.getLogger(TrainingSetUtils.class.getName());
     
     /**
      * Saves training examples from this set to the CSV file
@@ -46,7 +49,9 @@ public final class TrainingSetUtils {
     public static void exportToCSV(final TrainingSet trainingSet, final OutputStream out, 
             final boolean categoryAtEnd, final int maxRowCount, final int categoriesCount) 
     throws TrainingSetException, IOException {
-        exportToCSV(trainingSet, new PrintWriter(out), categoryAtEnd, maxRowCount, categoriesCount);
+        try (PrintWriter writer = new PrintWriter(out)) {
+            exportToCSV(trainingSet, writer, categoryAtEnd, maxRowCount, categoriesCount);
+        }
     }
     
     /**
@@ -68,10 +73,15 @@ public final class TrainingSetUtils {
     public static void exportToCSV(final TrainingSet trainingSet, final PrintWriter writer, 
             final boolean categoryAtEnd, final int maxRowCount, final int categoriesCount) 
     throws TrainingSetException, IOException {
+        logger.info("Export traning set to CSV file");
+        logger.info("Category at end of each row : " + categoryAtEnd);
+        logger.info("Number of categories : " + categoriesCount);
+        int inputSize = 0;
         int counter = 0;
         for (Iterator it = trainingSet.iterator(); counter < maxRowCount && it.hasNext(); counter++) {
             TrainingExample trainingExample = (TrainingExample) it.next();
             Object[] tuple = trainingExample.getTuple();
+            inputSize = tuple.length;
             int categoryNumber = -1;
             try {
                 categoryNumber = Integer.parseInt(trainingExample.getCategory().toString());
@@ -113,7 +123,6 @@ public final class TrainingSetUtils {
                         writer.print(';');
                         writer.print('0');
                     }
-                    i++;
                     writer.print(';');
                     writer.print('1');
                     while (i++ < categoriesCount) {
@@ -124,7 +133,10 @@ public final class TrainingSetUtils {
             }
             writer.println();
         }
+        writer.flush();
+        logger.info("Input size : " + inputSize);
     }
+
     
     
 }
